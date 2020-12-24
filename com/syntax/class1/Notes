@@ -1,0 +1,32 @@
+
+
+
+
+
+
+
+@Test
+-prints in alphabetical order unless there are before and after conditions
+
+import org.testng.annotations.*; <-- This star will import every interface so wont clutter code
+
+@BeforeMethod -- executes before before all the tests and then the test will execute
+
+@AfterMethod -- will execute after all the tests have ran.
+
+Before and After Method will print before and after every method
+
+@BeforeClass will run before the code
+
+ex:
+@BeforeClass
+
+@BeforeMethod
+@Test                -----1st Test
+@AfterMethod
+
+@BeforeMethod
+@Test2              -----2nd Test
+@AfterMethod
+
+@AfterClassMethod

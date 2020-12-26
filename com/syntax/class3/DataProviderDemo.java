@@ -1,22 +1,18 @@
-package com.syntax.class2;
+package com.syntax.class3;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.util.concurrent.TimeUnit;
 
-public class SoftAssertionDemo {
-
-    //As and admin I should be able to login into HRMS
-    //logo is displayed
-    //user is successfully logged in
+public class DataProviderDemo {
 
     WebDriver driver;
 
@@ -34,24 +30,29 @@ public class SoftAssertionDemo {
         driver.quit();
     }
 
-    @Test(groups = "regression")
-    public void logoAndValidLogin(){
-        //verifying that logo is displayed
-        WebElement element = driver.findElement(By.xpath("//div[@id = 'divLogo']//img"));
-        //creting an object of soft assertion
-        SoftAssert softAsert=new SoftAssert();
-        softAsert.assertTrue(!element.isDisplayed(),"Logo is not displayed");
-        //entering valid credentials to login
-        String username="Admin";
+    @Test(dataProvider ="loginData", groups = "regression")
+    public void multipleLogin(String username, String password) throws InterruptedException {
         driver.findElement(By.id("txtUsername")).sendKeys(username);
-        driver.findElement(By.id("txtPassword")).sendKeys("Hum@nhrm123");
+        driver.findElement(By.id("txtPassword")).sendKeys(password);
+        Thread.sleep(3000);
         driver.findElement(By.id("btnLogin")).click();
         //validating that we ar logged in
         WebElement welcomeMessage = driver.findElement(By.cssSelector("a#welcome"));
+        Thread.sleep(3000);
+        Assert.assertTrue(welcomeMessage.isDisplayed(), "Welcome message is not displayed");
+    }
 
-        softAsert.assertTrue(!welcomeMessage.isDisplayed(), "Welcome message is not displayed");
-        softAsert.assertEquals(welcomeMessage.getText(), "Welcomes "+username, "Welcome text is not matching");
-        System.out.println("End of the test case");
-        softAsert.assertAll();
+    //public -> protected -> default -> private
+    @DataProvider
+    public Object[][] loginData() {
+        String[][] data = new String[3][2];
+        data[0][0] = "Admin";
+        data[0][1] = "Hum@nhrm123";
+        data[1][0] = "James";
+        data[1][1] = "Syntax123!";
+        data[2][0] = "Burju";
+        data[2][1] = "Syntax123!";
+
+        return data;
     }
 }

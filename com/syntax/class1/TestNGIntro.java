@@ -4,19 +4,18 @@ import org.testng.annotations.Test;
 
 public class TestNGIntro {
 
-    @Test
-    public void Hello(){
+    @Test(groups = "smoke")
+    public void hello(){
         System.out.println("Hello");
     }
 
-    @Test
+    @Test(groups = "smoke")
     public void sayBye(){
         System.out.println("Bye");
     }
 
-    @Test
+    @Test(groups = "smoke")
     public void anotherMethod(){
         System.out.println("How are you today?");
     }
-
 }

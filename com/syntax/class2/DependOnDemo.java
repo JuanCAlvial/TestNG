@@ -5,13 +5,13 @@ import org.testng.annotations.*;
 
 public class DependOnDemo {
 
-    @Test()
+    @Test(groups = "smoke")
     public void login() {
         System.out.println("I am login in");
         Assert.assertFalse(false);
     }
 
-    @Test(dependsOnMethods = "login")//if login fails, this Test method will get ignored
+    @Test(dependsOnMethods = "login", groups = "smoke")//if login fails, this Test method will get ignored
     public void addEmployee() {
         System.out.println("I am adding employee");
     }

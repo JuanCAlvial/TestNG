@@ -1,0 +1,31 @@
+TestNG Class 3
+
+--- Recap ---
+
+***testing.xml file is a configuration where we can specify which classes, methods, groups etc to run
+<suite name ="Any name">
+    <test name ="Any Name">
+        <packages>
+            <classes>
+                <class name = "com.syntax.class2.HW">
+                    <methods>
+                        <exclude name="logoValidation"/>
+                    </methods>
+                </class>
+            </classes>
+        </packages>
+    </test>
+</suite>
+
+***Assertions- replaces if statements
+Hard assertion --> if assertion fails then it will stop executing
+Soft assertion --> collects all failures and then we need to call assertAll() (SoftAssert)
+
+***@Test(dependsOnMethods="")
+public void turnOff(){
+    ....code...
+}
+@Test
+public void turnOn(){
+    ....code...
+}

@@ -11,7 +11,7 @@ public class HW {
 
     WebDriver driver;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void openAndNavigate() {
         System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         driver = new ChromeDriver();
@@ -20,7 +20,7 @@ public class HW {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
-    @Test(priority = 0, enabled = false)
+    @Test(priority = 0, enabled = true, groups = "regression")
     public void logoValidation() {
         WebElement logo = driver.findElement(By.cssSelector("img[src$='syntax.png']"));
 //        if(logo.isDisplayed()) {
@@ -32,7 +32,7 @@ public class HW {
         Assert.assertTrue(logo.isDisplayed(), "Logo is not displayed");
     }
 
-    @Test (priority = 1)
+    @Test (priority = 1, groups = "smoke")
     public void invalidCredentials() {
         driver.findElement(By.id("txtUsername")).sendKeys("Admin1");
         driver.findElement(By.id("txtPassword")).sendKeys("Hum@nhrm1234");
@@ -49,7 +49,8 @@ public class HW {
         Assert.assertEquals(errorMessageText, expectedErrorMessage, "Not correct error message is displayed" );
         System.out.println("My code after the assertion");
     }
-    @AfterMethod
+
+    @AfterMethod(alwaysRun = true)
     public void closeBrowser() {
         driver.quit();
     }

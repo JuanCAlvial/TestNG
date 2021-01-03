@@ -21,12 +21,13 @@ public class SoftAssertionDemo {
     WebDriver driver;
 
     @BeforeMethod(alwaysRun = true)
-    public void openAndNavigate() {
+    public void openAndNavigate() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         driver = new ChromeDriver();
         driver.navigate().to("http://hrmstest.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
         //driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        Thread.sleep(5000);
     }
 
     @AfterMethod(alwaysRun = true)
@@ -46,7 +47,7 @@ public class SoftAssertionDemo {
         driver.findElement(By.id("txtUsername")).sendKeys(username);
         driver.findElement(By.id("txtPassword")).sendKeys("Hum@nhrm123");
         driver.findElement(By.id("btnLogin")).click();
-        //validating that we ar logged in
+        //validating that we are  logged in
         WebElement welcomeMessage = driver.findElement(By.cssSelector("a#welcome"));
 
         softAsert.assertTrue(!welcomeMessage.isDisplayed(), "Welcome message is not displayed");

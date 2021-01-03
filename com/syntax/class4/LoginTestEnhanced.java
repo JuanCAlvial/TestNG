@@ -1,30 +1,13 @@
-package com.syntax.class1;
+package com.syntax.class4;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.CommonMethods;
 
-import java.util.concurrent.TimeUnit;
+public class LoginTestEnhanced extends CommonMethods {
 
-public class LoginTest {
-
-    WebDriver driver;
-
-    @BeforeMethod(alwaysRun = true)
-    public void openAndNavigate() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-        driver=new ChromeDriver();
-        driver.get("http://hrmstest.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
-        //driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        Thread.sleep(5000);
-    }
-
-    @Test (groups = "smoke")
+    @Test(groups = "smoke")
     public void validAdminLogin(){
         driver.findElement(By.id("txtUsername")).sendKeys("Admin");
         driver.findElement(By.id("txtPassword")).sendKeys("Hum@nhrm123");
@@ -49,10 +32,4 @@ public class LoginTest {
             System.out.println("Title is not matched. Test Failed");
         }
     }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeBrowser(){
-        driver.quit();
-    }
-
 }
